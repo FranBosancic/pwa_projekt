@@ -1,0 +1,63 @@
+.naslov {
+  width: 100%;
+  max-width: 1000px; 
+  margin: 0 auto;
+  display: flex;
+  padding: 10px 0px 10px 0px;
+  font-family: sans-serif;
+}
+
+.pozadinska_boja_naslova {
+    background-color: blue; /* DEFAULT */
+}
+
+.pozadinska_boja_naslova.sport {
+  background-color: #ffcc00;
+}
+
+.pozadinska_boja_naslova.news {
+  background-color: #f0f0f0;
+}
+
+article {
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+article img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+article h1 {
+  margin-bottom: 10px;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+article h2 {
+  font-size: 1.3rem;
+  color: black;
+  padding: 20px;
+}
+
+.tekst {
+  color: grey;
+  padding: 20px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 30px;
+  text-decoration: none;
+  color: #2a5298;
+}
+
+
+

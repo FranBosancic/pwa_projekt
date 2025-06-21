@@ -1,0 +1,57 @@
+
+.forma {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.forma label {
+  font-weight: bold;
+}
+
+.forma input[type="text"],
+.forma textarea,
+.forma select,
+.forma input[type="file"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.forma input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.forma button {
+  padding: 20px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.forma button[type="reset"] {
+  background-color: green;
+}
+
+.forma button[type="submit"] {
+  background-color: black;
+}
+
+.forma button[type="reset"]:hover {
+  background-color: darkgreen;
+}
+
+.forma button[type="submit"]:hover {
+  background-color: grey;
+}
+
+.forma input[type="text"],
+.forma textarea {
+  resize: none;
+}
+
+

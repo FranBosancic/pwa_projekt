@@ -1,0 +1,23 @@
+.naslov {
+  width: 100%;
+  max-width: 1000px; 
+  margin: 0 auto;
+  display: flex;
+  padding: 10px 0px 10px 0px;
+  font-family: sans-serif;
+}
+
+.pozadinska_boja_naslova {
+    background-color: blue; /* DEFAULT */
+}
+
+.pozadinska_boja_naslova.sport {
+  background-color: #ffcc00;
+}
+
+.pozadinska_boja_naslova.news {
+  background-color: #f0f0f0;
+}
+
+
+
