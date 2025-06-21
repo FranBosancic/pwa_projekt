@@ -12,7 +12,6 @@ U **phpMyAdminu** treba pokrenuti uvoz (import) pripremljene SQL skripte koja se
 
 > **Važno:**  
 > Ako baza podataka s imenom `pwa_projekt` već postoji, import neće uspjeti.  
-> U tom slučaju prvo obrišite postojeću bazu ili napravite novu s drugačijim imenom.
 
 ---
 
