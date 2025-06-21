@@ -53,7 +53,13 @@ $rezultat = mysqli_fetch_assoc($result);
                 <img src="<?php echo UPLPATH . htmlspecialchars($rezultat['slika']); ?>"
                     alt="<?php echo htmlspecialchars($rezultat['naslov']); ?>">
                 <h2><?php echo htmlspecialchars($rezultat['sazetak']); ?></h2>
-                <div class="tekst"><?php echo nl2br(htmlspecialchars($rezultat['tekst'])); ?></div>
+                <div class="tekst">
+                    <?php
+                    $tekst = str_replace('\r\n', "\n", $rezultat['tekst']);
+                    echo nl2br(htmlspecialchars($tekst));
+                    ?>
+                </div>
+
                 <a href="index.php" class="back-link">← Povratak na naslovnicu</a>
             </article>
         </div>

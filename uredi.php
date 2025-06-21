@@ -3,7 +3,7 @@ session_start();
 include 'php_util/connect.php';
 define('UPLPATH', 'images/');
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
 // Dohvati članak po ID-u
 $query = "SELECT * FROM story WHERE ID = $id";
@@ -29,14 +29,14 @@ $izmjena = mysqli_fetch_assoc($result);
     <title>Uredi članak</title>
 
     <script>
-    function confirmPromjena() {
-      return confirm('Jesi li siguran da želiš promijeniti vijest?');
-    }
+        function confirmPromjena() {
+            return confirm('Jesi li siguran da želiš promijeniti vijest?');
+        }
 
-    function confirmDelete() {
-      return confirm('Jesi li siguran da želiš izbrisati članak?');
-    }
-  </script>
+        function confirmDelete() {
+            return confirm('Jesi li siguran da želiš izbrisati članak?');
+        }
+    </script>
 </head>
 
 <body>
@@ -51,20 +51,37 @@ $izmjena = mysqli_fetch_assoc($result);
             <section>
                 <form action="php_util/uredi_skripta.php" method="POST" enctype="multipart/form-data" class="forma">
                     <label for="naslov">Naslov:</label>
-                    <input type="text" name="naslov" value="<?php echo htmlspecialchars($izmjena['naslov']); ?>" required>
+                    <input id="naslov" type="text" name="naslov"
+                        value="<?php echo htmlspecialchars($izmjena['naslov']); ?>" required>
 
                     <label for="sazetak">Sažetak:</label>
-                    <textarea name="sazetak" rows="3" required><?php echo htmlspecialchars($izmjena['sazetak']); ?></textarea>
+                    <textarea id="sazetak" name="sazetak" rows="3"
+                        required><?php echo htmlspecialchars($izmjena['sazetak']); ?></textarea>
 
                     <label for="tekst">Tekst:</label>
-                    <textarea name="tekst" rows="6" required><?php echo htmlspecialchars($izmjena['tekst']); ?></textarea>
+                    <textarea id="tekst" name="tekst" rows="6"
+                        required><?php echo htmlspecialchars(str_replace('\r\n', "\n", $izmjena['tekst'])); ?></textarea>
+
 
                     <label for="kategorija">Kategorija:</label>
-                    <select name="kategorija" required>
-                        <option value="news" <?php if ($izmjena['kategorija'] == 'news') echo 'selected'; ?>>News</option>
-                        <option value="sport" <?php if ($izmjena['kategorija'] == 'sport') echo 'selected'; ?>>Sport</option>
-                        <option value="politics" <?php if ($izmjena['kategorija'] == 'politics') echo 'selected'; ?>>Politics</option>
+                    <select id="kategorija" name="kategorija" required>
+                        <option value="">Odaberite kategoriju</option>
+                        <?php
+                        $query = "SELECT id, naziv FROM kategorija";
+                        $result = mysqli_query($conn, $query);
+
+                        if ($result && mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $id = $row['id'];
+                                $naziv = ucfirst(htmlspecialchars($row['naziv']));
+                                // Provjera je li je ovo kategorija iz članka
+                                $selected = ($id == $izmjena['kategorija_id']) ? 'selected' : '';
+                                echo "<option value=\"$id\" $selected>$naziv</option>";
+                            }
+                        }
+                        ?>
                     </select>
+
 
                     <label for="slika">Slika:</label>
                     <input type="file" name="slika">
@@ -73,15 +90,49 @@ $izmjena = mysqli_fetch_assoc($result);
                     </div>
 
                     <label>
-                        <input type="checkbox" name="arhiva" <?php if ($izmjena['arhiva'] == 1) echo 'checked'; ?>>
+                        <input type="checkbox" name="arhiva" <?php if ($izmjena['arhiva'] == 1)
+                            echo 'checked'; ?>>
                         Arhiviraj
                     </label>
 
                     <input type="hidden" name="id" value="<?php echo $izmjena['ID']; ?>">
 
-                    <button type="submit" name="update" onclick="return confirmPromjena()">Spremi promjene</button>
-                    <button type="submit" name="delete" onclick="return confirmDelete()" style="background-color: red;">Izbriši članak</button>
+                    <button type="submit" name="update">Spremi promjene</button>
+                    <button type="submit" name="delete" onclick="return confirmDelete()"
+                        style="background-color: red;">Izbriši članak</button>
                 </form>
+
+                <script>
+                    document.querySelector('.forma').addEventListener('submit', function (e) {
+                        const naslov = document.getElementById('naslov').value.trim();
+                        const sazetak = document.getElementById('sazetak').value.trim();
+                        const tekst = document.getElementById('tekst').value.trim();
+
+                        const errors = [];
+
+                        if (naslov.length < 5 || naslov.length > 32) {
+                            errors.push("Naslov mora imati između 5 i 32 znaka.");
+                        }
+                        if (sazetak.length < 20 || sazetak.length > 255) {
+                            errors.push("Sažetak mora imati između 20 i 255 znakova.");
+                        }
+                        if (tekst.length < 50) {
+                            errors.push("Tekst mora imati najmanje 50 znakova.");
+                        }
+
+                        if (errors.length > 0) {
+                            e.preventDefault(); // spriječi slanje forme
+                            alert(errors.join("\n"));
+                        } else {
+                            if (!confirm("Jesi li siguran da želiš poslati vijest?")) {
+                                e.preventDefault();
+                            }
+                        }
+                    });
+                </script>
+
+
+
             </section>
         </div>
     </main>

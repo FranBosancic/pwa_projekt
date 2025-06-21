@@ -41,8 +41,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
       </div>
 
       <section>
-        <form action="php_util/skripta.php" method="POST" enctype="multipart/form-data" class="forma"
-          onsubmit="return confirmSubmit()">
+        <form action="php_util/skripta.php" method="POST" enctype="multipart/form-data" class="forma">
 
           <label for="naslov">Naslov vijesti:</label>
           <input type="text" id="naslov" name="naslov" required />
@@ -81,6 +80,36 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
           <button type="submit">Pošalji vijest</button>
 
         </form>
+        <script>
+          document.querySelector('.forma').addEventListener('submit', function (e) {
+            const naslov = document.getElementById('naslov').value.trim();
+            const sazetak = document.getElementById('sazetak').value.trim();
+            const tekst = document.getElementById('tekst').value.trim();
+
+            const errors = [];
+
+            if (naslov.length < 5 || naslov.length > 32) {
+              errors.push("Naslov mora imati između 5 i 32 znaka.");
+            }
+            if (sazetak.length < 20 || sazetak.length > 255) {
+              errors.push("Sažetak mora imati između 20 i 255 znakova.");
+            }
+            if (tekst.length < 50) {
+              errors.push("Tekst mora imati najmanje 50 znakova.");
+            }
+
+            if (errors.length > 0) {
+              e.preventDefault(); // spriječi slanje forme
+              alert(errors.join("\n"));
+            } else {
+              // Ako želiš, možeš ovdje prikazati potvrdu prije slanja
+              if (!confirm("Jesi li siguran da želiš poslati vijest?")) {
+                e.preventDefault();
+              }
+            }
+          });
+        </script>
+
       </section>
     </div>
   </main>
