@@ -74,6 +74,16 @@ define('UPLPATH', 'images/');
 
     <?php include 'includes/footer.php'; ?>
     <?php mysqli_close($conn); ?>
+
+<script>
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const navLinks = document.querySelector('.nav-links');
+
+  hamburgerBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+</script>
+
 </body>
 
 </html>

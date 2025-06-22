@@ -1,53 +1,33 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-html, body {
-  height: 100%;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; }
+main { flex: 1; padding: 20px; }
+.container { width: 100%; max-width: 1000px; margin: 0 auto; }
 
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
-  padding: 20px;
-}
-
-
-
-/* Sve iznad je potrebno, treba koristiti main takoder inace ce se strgati layout*/
-
-
-
-
-/* Contaienr je samo za stavljanje stvari na sredinu */
-.container {
-  width: 100%;
-  max-width: 1000px; 
-  margin: 0 auto;
-}
-
-
-
-/* HEADER */
 header {
   background-color: black;
+  position: relative;
+}
+
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  width: 100%;
+}
+
+.logo-link {
+  margin-right: 20px;
 }
 
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: start;
   list-style: none;
   flex-wrap: wrap;
-  width: 100%;
 }
-
 
 .navbar li {
   display: flex;
@@ -67,49 +47,80 @@ header {
   background-color: grey;
 }
 
-.logo {
-  margin-right: 20px;
+.hamburger {
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 10px;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: white;
+  transition: all 0.3s ease-in-out;
 }
 
 
-
-/* FOOTER */
-footer {
-  background-color: grey;
-  color: white;
-  text-align: center;
-  padding: 10px 0;
-}
-
-.footer-text {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 10px 0;
-}
-
-
-/* Zaglavlje s datumom */
-.welcome {
-  padding: 10px 0;
-  color: grey;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
+footer { background-color: grey; color: white; text-align: center; padding: 10px 0; }
+.footer-text { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; padding: 10px 0; }
+.welcome { padding: 10px 0; color: grey; display: flex; justify-content: space-between; flex-wrap: wrap; }
 
 
 
-/* Respozivnost*/
 @media (max-width: 1000px) {
   .container {
-    padding: 0 8px;
+    padding: 0 15px;
   }
 
+  nav {
+    justify-content: space-between;
+  }
+
+
   .navbar {
+    display: none; 
     flex-direction: column;
-    align-items: flex-start;
+    width: 100%;
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    background-color: black;
+    z-index: 100;
+  }
+  
+  .navbar.active {
+    display: flex;
+  }
+  
+
+  .navbar a {
+    border: none;
+    border-bottom: 1px solid #333;
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar li {
+    width: 100%;
+  }
+
+
+  .hamburger {
+    display: block;
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
 
   .footer-text {
