@@ -35,16 +35,16 @@ define('UPLPATH', 'images/');
 
             if ($categories_result && mysqli_num_rows($categories_result) > 0) {
                 while ($category_row = mysqli_fetch_assoc($categories_result)) {
-                    $kategorija_id = $category_row['ID']; // ID kategorije
-                    $kategorija_naziv = $category_row['naziv']; // naziv kategorije, za prikaz
-            
+                    $kategorija_id = $category_row['ID'];
+                    $kategorija_naziv = $category_row['naziv'];
+
                     echo '<section>';
                     echo '  <div class="naslov ' . htmlspecialchars(strtolower($kategorija_naziv)) . '">';
                     echo '    <h2>' . htmlspecialchars(ucfirst($kategorija_naziv)) . '</h2>';
                     echo '  </div>';
                     echo '  <div class="artikli">';
 
-                    $query2 = "SELECT * FROM story WHERE arhiva = 0 AND kategorija_id = " . (int) $kategorija_id;
+                    $query2 = "SELECT * FROM story WHERE arhiva = 0 AND kategorija_id = " . (int) $kategorija_id . " ORDER BY id DESC LIMIT 3";
                     $result2 = mysqli_query($conn, $query2);
 
                     if ($result2 && mysqli_num_rows($result2) > 0) {
@@ -64,8 +64,8 @@ define('UPLPATH', 'images/');
                     echo '  </div>';
                     echo '</section>';
                 }
-
             }
+
             ?>
 
 

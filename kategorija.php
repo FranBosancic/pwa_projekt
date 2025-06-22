@@ -31,7 +31,7 @@ $ispisKategorije = ucfirst($kategorija_sve);
 
     <section class="pozadinska_boja_naslova <?php echo htmlspecialchars(strtolower($kategorija_sve)); ?>">
         <div class="naslov">
-            <h1><?php echo htmlspecialchars(strtoupper($ispisKategorije)); ?></h1>
+            <h1><?php echo htmlspecialchars(strtoupper($kategorija_sve)); ?></h1>
         </div>
     </section>
 

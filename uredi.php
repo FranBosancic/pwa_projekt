@@ -36,6 +36,9 @@ $izmjena = mysqli_fetch_assoc($result);
         function confirmDelete() {
             return confirm('Jesi li siguran da želiš izbrisati članak?');
         }
+         function confirmUpdate() {
+            return confirm('Jesi li siguran da želiš spremiti promjene.');
+        }
     </script>
 </head>
 
@@ -97,7 +100,7 @@ $izmjena = mysqli_fetch_assoc($result);
 
                     <input type="hidden" name="id" value="<?php echo $izmjena['ID']; ?>">
 
-                    <button type="submit" name="update">Spremi promjene</button>
+                    <button type="submit" name="update" onclick="return confirmUpdate()">Spremi promjene</button>
                     <button type="submit" name="delete" onclick="return confirmDelete()"
                         style="background-color: red;">Izbriši članak</button>
                 </form>
@@ -123,10 +126,6 @@ $izmjena = mysqli_fetch_assoc($result);
                         if (errors.length > 0) {
                             e.preventDefault(); // spriječi slanje forme
                             alert(errors.join("\n"));
-                        } else {
-                            if (!confirm("Jesi li siguran da želiš poslati vijest?")) {
-                                e.preventDefault();
-                            }
                         }
                     });
                 </script>
